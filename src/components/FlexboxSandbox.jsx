@@ -17,21 +17,29 @@ export default function FlexboxSandbox() {
   const [align, setAlign] = useState("start");
   const [wrap, setWrap] = useState(true);
   const [gap, setGap] = useState(4);
-
+  //useMemo 用來優化計算效能 只有在指定的依賴變動時，才重新計算值
+  //const value = useMemo(() => {
+  // return 要計算的東西;
+  // }, [依賴1, 依賴2, ...]);
   const containerClass = useMemo(() => {
+    // 先決定 alignClass
+    let alignClass = "";
+    if (align === "stretch") {
+      alignClass = "items-stretch";
+    } else if (align === "baseline") {
+      alignClass = "items-baseline";
+    } else {
+      alignClass = `items-${align}`;
+    }
     return [
       "flex",
       wrap ? "flex-wrap" : "flex-nowrap",
       direction === "row" ? "flex-row" : "flex-col",
-      `justify-${justify}`,
-      align === "stretch"
-        ? "items-stretch"
-        : align === "baseline"
-        ? "items-baseline"
-        : `items-${align}`,
+      `justify-${justify}`, //把變數的值插進字串裡
+      alignClass, //使用上面決定好的 alignClass
       `gap-${gap}`,
       "min-h-64", // 讓容器有基本高度
-    ].join(" ");
+    ].join(" "); //將上述輸出成一個字串
   }, [wrap, direction, justify, align, gap]);
 
   const addItem = () => {
@@ -46,7 +54,9 @@ export default function FlexboxSandbox() {
       {/* 左側：UI 控制面板（只顯示控制，不顯示任何 item） */}
       <aside className="w-96 shrink-0 border-r border-neutral-200 bg-brand-lightgray p-4 overflow-y-auto">
         <div className="mb-4">
-          <h1 className="text-2xl font-semibold text-brand-orange">Flexbox Playground</h1>
+          <h1 className="text-2xl font-semibold text-brand-orange">
+            Flexbox Playground
+          </h1>
           <p className="mt-1 text-sm text-neutral-600">
             調整左側控制，右側區域會即時反映。
           </p>
@@ -119,7 +129,9 @@ export default function FlexboxSandbox() {
           </label>
 
           <label className="text-sm">
-            <div className="mb-1 font-medium text-brand-orange">Align Items</div>
+            <div className="mb-1 font-medium text-brand-orange">
+              Align Items
+            </div>
             <select
               value={align}
               onChange={(e) => setAlign(e.target.value)}
@@ -134,7 +146,9 @@ export default function FlexboxSandbox() {
           </label>
 
           <label className="col-span-2 text-sm">
-            <div className="mb-1 font-medium text-brand-orange">Gap (Tailwind scale)</div>
+            <div className="mb-1 font-medium text-brand-orange">
+              Gap (Tailwind scale)
+            </div>
             <input
               type="number"
               min={0}
@@ -150,7 +164,9 @@ export default function FlexboxSandbox() {
         {/* 目前的 container class 顯示（方便複製） */}
         <div className="mt-4 rounded-lg bg-neutral-50 p-3 text-xs">
           <div className="font-mono break-all">
-            <span className="opacity-70 text-brand-orange">Container classes:</span>
+            <span className="opacity-70 text-brand-orange">
+              Container classes:
+            </span>
             <br />
             <code className=" text-brand-orange">{containerClass}</code>
           </div>
@@ -158,15 +174,17 @@ export default function FlexboxSandbox() {
       </aside>
 
       {/* 右側：Flexbox 預覽（只顯示結果） */}
-      <section className="flex-1 p-6">
+      <section className="flex-1 p-6 bg-brand-gold">
         <div className="h-full rounded-2xl border-2 border-brand-gold bg-brand-lightgray p-4 ">
           <div className={containerClass}>
             {items.map((i) => (
               <div
                 key={i}
-                className="h-16 w-28 flex items-center justify-center rounded-xl border border-brand-orangeDark bg-brand-orangeDark shadow-sm"
+                className="h-16 w-28 flex items-center justify-center rounded-xl border border-brand-orangeDark bg-brand-orangeDark shadow-sm "
               >
-                <span className="font-medium text-brand-orange">Index: {i}</span>
+                <span className="font-medium text-brand-orange ">
+                  Index: {i}
+                </span>
               </div>
             ))}
           </div>
