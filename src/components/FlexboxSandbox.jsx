@@ -2,7 +2,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-
+import { cn } from "@/lib/utils";
 const DIR = ["row", "col"];
 const JUSTIFY = ["start", "center", "end", "between", "around", "evenly"];
 const ALIGN = ["start", "center", "end", "stretch", "baseline"];
@@ -16,7 +16,7 @@ export default function FlexboxSandbox() {
   const [justify, setJustify] = useState("start");
   const [align, setAlign] = useState("start");
   const [wrap, setWrap] = useState(true);
-  const [gap, setGap] = useState(4);
+  const [gap, setGap] = useState(10);
   //useMemo 用來優化計算效能 只有在指定的依賴變動時，才重新計算值
   //const value = useMemo(() => {
   // return 要計算的東西;
@@ -31,15 +31,15 @@ export default function FlexboxSandbox() {
     } else {
       alignClass = `items-${align}`;
     }
-    return [
+    return cn(
       "flex",
       wrap ? "flex-wrap" : "flex-nowrap",
       direction === "row" ? "flex-row" : "flex-col",
       `justify-${justify}`, //把變數的值插進字串裡
       alignClass, //使用上面決定好的 alignClass
-      `gap-${gap}`,
-      "min-h-64", // 讓容器有基本高度
-    ].join(" "); //將上述輸出成一個字串
+      `gap-${gap}`, // Tailwind 的 gap 樣式
+      "min-h-64" // 讓容器有基本高度
+    ); //將上述輸出成一個字串
   }, [wrap, direction, justify, align, gap]);
 
   const addItem = () => {
@@ -58,14 +58,14 @@ export default function FlexboxSandbox() {
             Flexbox Playground
           </h1>
           <p className="mt-1 text-sm text-neutral-600">
-            調整左側控制，右側區域會即時反映。
+            調整左側控制，右側區域會即時反映。~
           </p>
         </div>
 
         {/* 動作按鈕 */}
         <div className="flex flex-wrap gap-2">
           <button
-            onClick={addItem}
+            onClick={addItem} //如果是 onClick={addItem()} 則會在每次渲染時都執行
             className="rounded-xl border px-3 py-2 hover:bg-neutral-50 text-brand-orange"
           >
             Add Item
@@ -91,7 +91,7 @@ export default function FlexboxSandbox() {
             <select
               value={direction}
               onChange={(e) => setDirection(e.target.value)}
-              className="w-full rounded-lg border px-3 py-2 text-brand-orange"
+              className="w-full rounded-lg border px-3 py-2 text-brand-orange focus:outline-none focus:ring-0 "
             >
               {DIR.map((d) => (
                 <option key={d} value={d}>
@@ -174,9 +174,10 @@ export default function FlexboxSandbox() {
       </aside>
 
       {/* 右側：Flexbox 預覽（只顯示結果） */}
-      <section className="flex-1 p-6 bg-brand-gold">
+      <section className="flex-1 p-6 bg-brand-gold overflow-auto">
         <div className="h-full rounded-2xl border-2 border-brand-gold bg-brand-lightgray p-4 ">
           <div className={containerClass}>
+            {/* style={{ gap: `${gap * 4}px` }} */}
             {items.map((i) => (
               <div
                 key={i}
