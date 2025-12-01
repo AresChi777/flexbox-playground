@@ -58,7 +58,7 @@ export default function FlexboxSandbox() {
             Flexbox Playground
           </h1>
           <p className="mt-1 text-sm text-neutral-600">
-            調整左側控制，右側區域會即時反映。~
+            調整左側控制，右側區域會即時反映。
           </p>
         </div>
 
@@ -66,19 +66,19 @@ export default function FlexboxSandbox() {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={addItem} //如果是 onClick={addItem()} 則會在每次渲染時都執行
-            className="rounded-xl border px-3 py-2 hover:bg-neutral-50 text-brand-orange"
+            className="rounded-xl border px-3 py-2 hover:bg-brand-orangeDark text-brand-orange border-brand-orange"
           >
             Add Item
           </button>
           <button
             onClick={removeLast}
-            className="rounded-xl border px-3 py-2 hover:bg-neutral-50 text-brand-orange"
+            className="rounded-xl border px-3 py-2 hover:bg-brand-orangeDark text-brand-orange border-brand-orange"
           >
             Remove Last
           </button>
           <button
             onClick={clearAll}
-            className="rounded-xl border px-3 py-2 hover:bg-neutral-50 text-brand-orange"
+            className="rounded-xl border px-3 py-2 hover:bg-brand-orangeDark text-brand-orange border-brand-orange"
           >
             Clear
           </button>
@@ -91,7 +91,7 @@ export default function FlexboxSandbox() {
             <select
               value={direction}
               onChange={(e) => setDirection(e.target.value)}
-              className="w-full rounded-lg border px-3 py-2 text-brand-orange focus:outline-none focus:ring-0 "
+              className="w-full rounded-lg border px-3 py-2 text-brand-orange focus:outline-none focus:ring-0 border-brand-orange "
             >
               {DIR.map((d) => (
                 <option key={d} value={d}>
@@ -106,7 +106,7 @@ export default function FlexboxSandbox() {
             <select
               value={wrap ? "wrap" : "nowrap"}
               onChange={(e) => setWrap(e.target.value === "wrap")}
-              className="w-full rounded-lg border px-3 py-2 text-brand-orange"
+              className="w-full rounded-lg border px-3 py-2 text-brand-orange border-brand-orange"
             >
               <option value="wrap">wrap</option>
               <option value="nowrap">nowrap</option>
@@ -114,11 +114,11 @@ export default function FlexboxSandbox() {
           </label>
 
           <label className="text-sm">
-            <div className="mb-1 font-medium text-brand-orange">Justify</div>
+            <div className="mb-1 font-medium text-brand-orange ">Justify</div>
             <select
               value={justify}
               onChange={(e) => setJustify(e.target.value)}
-              className="w-full rounded-lg border px-3 py-2 text-brand-orange"
+              className="w-full rounded-lg border px-3 py-2 text-brand-orange border-brand-orange"
             >
               {JUSTIFY.map((j) => (
                 <option key={j} value={j}>
@@ -135,7 +135,7 @@ export default function FlexboxSandbox() {
             <select
               value={align}
               onChange={(e) => setAlign(e.target.value)}
-              className="w-full rounded-lg border px-3 py-2 text-brand-orange"
+              className="w-full rounded-lg border px-3 py-2 text-brand-orange border-brand-orange"
             >
               {ALIGN.map((a) => (
                 <option key={a} value={a}>
@@ -156,7 +156,7 @@ export default function FlexboxSandbox() {
               step={1}
               value={gap}
               onChange={(e) => setGap(Number(e.target.value) || 0)}
-              className="w-full rounded-lg border px-3 py-2 text-brand-orange"
+              className="w-full rounded-lg border px-3 py-2 text-brand-orange border-brand-orange"
             />
           </label>
         </div>
